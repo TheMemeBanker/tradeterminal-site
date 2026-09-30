@@ -24,12 +24,14 @@
       <span class="tt-brand-word">TRADE TERMINAL</span>
     </a>
     <div class="tt-sibs">
+      <a id="tradeTokenLink" class="tt-sib" aria-disabled="true" tabindex="-1" title="Token link coming soon">$TRADE</a>
       <a class="tt-sib" href="https://otcdesks.cash/" target="_blank" rel="noopener">OTC</a>
     </div>
     <nav aria-label="Main" class="ml-auto flex min-w-0 items-center gap-4 overflow-x-auto no-scrollbar tt-nav">
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#terminal">Terminal</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#watchlist">Watchlist</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#book">Book<span class="ml-1.5 align-middle rounded-full tt-newtag">paper</span></a>
+      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#trade">$TRADE</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#desks">Desks</a>
     </nav>
     <button id="themeBtn" class="tt-iconbtn" type="button" aria-label="Toggle theme">
@@ -148,6 +150,21 @@
       </div>
     </section>
 
+    <!-- ── $TRADE ───────────────────────────────────────── -->
+    <section id="trade" class="tt-section">
+      <h2 class="tt-h2">$TRADE</h2>
+      <p class="tt-sub">The terminal's own token. One link, no middlemen — buy it where it trades.</p>
+      <div class="tt-token">
+        <img src="./logo-bell.png" alt="" width="44" height="44" draggable="false" class="tt-token-mark">
+        <div class="tt-token-body">
+          <p class="tt-token-name">$TRADE</p>
+          <p class="tt-token-sub" id="tradeTokenNote">Launching soon. The buy link goes live here the moment it exists.</p>
+        </div>
+        <a id="tradeBuyBtn" class="tt-token-cta" aria-disabled="true" tabindex="-1" title="Token link coming soon">Buy $TRADE</a>
+      </div>
+      <div class="tt-token-row" id="tradeMintRow"><span class="tt-lab" style="margin:0">Mint</span><span class="tt-token-mint" id="tradeMint">launching soon</span></div>
+    </section>
+
     <!-- ── Desks ────────────────────────────────────────── -->
     <section id="desks" class="tt-section">
       <h2 class="tt-h2">Desks</h2>
@@ -194,6 +211,7 @@
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="xstock">xStocks</a></li>
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="desk">Desk tokens</a></li>
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="fx">FX</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#trade">$TRADE</a></li>
         </ul></div>
         <div><p class="mb-3 text-[9px] uppercase tracking-[0.14em] text-muted/50">Desks</p><ul class="space-y-2">
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="https://otcdesks.cash/" target="_blank" rel="noopener">OTC Desks</a></li>

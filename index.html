@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade Terminal — the desks family, on one screen</title>
+<meta name="description" content="A browser trading terminal for the desks family: live crypto, tokenized stocks, desk tokens and FX on one screen, with a command line and a paper book that fills at the live mark.">
+<link rel="icon" type="image/png" href="./favicon-candles.png">
+<meta property="og:title" content="Trade Terminal">
+<meta property="og:description" content="Live markets, a command line, and a paper book — the desks family on one screen.">
+<meta name="theme-color" content="#141414">
+<link rel="stylesheet" href="./theirs.css">
+<link rel="stylesheet" href="./term.css">
+<script>try{var t=localStorage.getItem("tt-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body class="min-h-screen bg-paper text-ink">
+
+<div class="tt-shell">
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="tt-header">
+    <a href="#top" class="tt-brand" aria-label="Trade Terminal home">
+      <img src="./logo-candles.png" alt="" width="26" height="26" class="tt-brand-logo" draggable="false">
+      <span class="tt-brand-word">TRADE TERMINAL</span>
+    </a>
+    <div class="tt-sibs">
+      <a class="tt-sib" href="https://otcdesks.cash/" target="_blank" rel="noopener">OTC</a>
+      <a class="tt-sib" href="https://fxdesks.cash/" target="_blank" rel="noopener">FX</a>
+      <a class="tt-sib" href="https://bonddesks.cash/" target="_blank" rel="noopener">BOND</a>
+    </div>
+    <nav aria-label="Main" class="ml-auto flex min-w-0 items-center gap-4 overflow-x-auto no-scrollbar tt-nav">
+      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#terminal">Terminal</a>
+      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#watchlist">Watchlist</a>
+      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#book">Book<span class="ml-1.5 align-middle rounded-full tt-newtag">paper</span></a>
+      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#desks">Desks</a>
+    </nav>
+    <button id="themeBtn" class="tt-iconbtn" type="button" aria-label="Toggle theme">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" width="15" height="15"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.2v1.8M8 13v1.8M1.2 8H3M13 8h1.8M3.2 3.2l1.3 1.3M11.5 11.5l1.3 1.3M12.8 3.2l-1.3 1.3M4.5 11.5l-1.3 1.3" stroke-linecap="round"/></svg>
+    </button>
+    <a href="#terminal" class="tt-cta" id="ctaTrade">Trade</a>
+  </header>
+
+  <!-- ── Ticker rail ────────────────────────────────────── -->
+  <div class="tt-rail" aria-label="Live tape">
+    <div class="tt-rail-track" id="railTrack"><!-- js --></div>
+  </div>
+
+  <!-- ── Status line ────────────────────────────────────── -->
+  <div class="tt-status" id="status">
+    <span class="tt-led" id="led" aria-hidden="true"></span>
+    <span id="statusText">Connecting to feeds…</span>
+    <span class="tt-status-r"><span id="clockET" class="tabular-nums">--:--:-- ET</span><span class="tt-status-sep">·</span><span id="clockUTC" class="tabular-nums">--:--:-- UTC</span></span>
+  </div>
+
+  <main id="top">
+
+    <!-- ── Command line ─────────────────────────────────── -->
+    <div class="tt-toolbar" id="terminal">
+      <form class="tt-cmd" id="cmdForm" autocomplete="off">
+        <span class="tt-prompt" aria-hidden="true">›</span>
+        <input id="cmdBox" type="text" placeholder="Symbol or command — SOL · watch TSLAx · buy 2 SOL · help" aria-label="Command line" spellcheck="false" autocomplete="off" class="min-w-0 flex-1 bg-transparent text-[12px] text-ink placeholder:text-muted/70" style="outline:none">
+        <span class="flex shrink-0 items-center gap-1" aria-hidden="true" id="kbdHint">
+          <kbd class="grid h-[19px] min-w-[19px] place-items-center rounded-md bg-well px-1 text-[10px] leading-none text-muted/80">⌘</kbd><kbd class="grid h-[19px] w-[19px] place-items-center rounded-md bg-well text-[10px] leading-none text-muted/80">K</kbd>
+        </span>
+      </form>
+      <div class="tt-pager">
+        <span id="pageLabel" class="text-[11px] text-muted tabular-nums">–</span>
+        <button id="pgPrev" class="tt-pgbtn" type="button" aria-label="Previous page">‹</button>
+        <button id="pgNext" class="tt-pgbtn" type="button" aria-label="Next page">›</button>
+      </div>
+    </div>
+    <div class="tt-console" id="console" aria-live="polite"><!-- js --></div>
+
+    <!-- ── Feature cards ────────────────────────────────── -->
+    <div class="grid gap-3 sm:grid-cols-3 tt-cards" id="cards"><!-- js --></div>
+
+    <!-- ── Terminal grid: quote + ticket ────────────────── -->
+    <div class="tt-grid">
+      <section class="tt-panel" aria-label="Quote">
+        <div class="tt-panel-head">
+          <div class="tt-qhead" id="qHead"><span class="tt-badge" aria-hidden="true">—</span><span class="nm">Select an instrument</span></div>
+          <div class="tt-tf" id="tf">
+            <button type="button" class="tt-tfb on" data-tf="1">1D</button>
+            <button type="button" class="tt-tfb" data-tf="7">7D</button>
+            <button type="button" class="tt-tfb" data-tf="30">30D</button>
+          </div>
+        </div>
+        <div class="tt-qprice"><span id="qLast" class="tabular-nums">—</span><span id="qDelta" class="tt-delta fl tabular-nums"></span></div>
+        <div class="tt-chartwrap"><canvas id="chart" class="tt-chart" aria-label="Price chart"></canvas><div class="tt-chart-empty" id="chartEmpty">Pick a symbol above or type one in the command line.</div></div>
+        <div class="tt-qstats" id="qStats"><!-- js --></div>
+      </section>
+
+      <section class="tt-panel" aria-label="Order ticket">
+        <div class="tt-panel-head"><span class="tt-colhead" style="margin:0">Order ticket</span><span class="tt-papertag">Paper</span></div>
+        <div class="tt-side" id="side">
+          <button type="button" class="tt-sideb buy on" data-side="buy">Buy</button>
+          <button type="button" class="tt-sideb sell" data-side="sell">Sell</button>
+        </div>
+        <div class="tt-ticket">
+          <label class="tt-field"><span class="tt-lab">Instrument</span><input id="tkSym" class="tt-input" type="text" value="" placeholder="SOL" spellcheck="false" autocomplete="off"></label>
+          <label class="tt-field"><span class="tt-lab">Quantity</span><input id="tkQty" class="tt-input tabular-nums" type="text" inputmode="decimal" value="1"></label>
+          <label class="tt-field wide" id="tkTypeWrap"><span class="tt-lab">Type</span><select id="tkType" class="tt-input"><option value="market">Market</option><option value="limit">Limit</option></select></label>
+          <label class="tt-field" id="tkLimitWrap" hidden><span class="tt-lab">Limit price</span><input id="tkLimit" class="tt-input tabular-nums" type="text" inputmode="decimal" placeholder="—"></label>
+        </div>
+        <div class="tt-ticket-est"><span class="tt-lab" style="margin:0">Estimated</span><span id="tkEst" class="tabular-nums">—</span></div>
+        <button type="button" id="tkSubmit" class="tt-submit buy">Buy at market</button>
+        <div class="tt-cashline"><span>Paper cash</span><span id="bkCash" class="tabular-nums">—</span></div>
+        <div class="tt-cashline"><span>Equity</span><span id="bkEquity" class="tabular-nums">—</span></div>
+        <p class="tt-fine">Simulated fills at the live mark. No funds move, nothing is custodied, nothing is routed.</p>
+      </section>
+    </div>
+
+    <!-- ── Chips + sort ─────────────────────────────────── -->
+    <div id="watchlist" class="tt-chiprow">
+      <div class="tt-chips" id="chips"><!-- js --></div>
+      <div class="flex h-[26px] shrink-0 items-center">
+        <select id="sortSel" class="tt-sort" aria-label="Sort instruments">
+          <option value="move">Sort&nbsp; Move</option>
+          <option value="name">Sort&nbsp; Name</option>
+          <option value="price">Sort&nbsp; Price</option>
+          <option value="vol">Sort&nbsp; Volume</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── Watchlist table ──────────────────────────────── -->
+    <div class="mt-3 overflow-hidden rounded-xl border border-frame bg-paper">
+      <div class="tt-thead">
+        <span>Instrument</span><span class="tt-r">Last</span><span class="tt-r tt-hidemob">1h</span><span class="tt-r">24h</span><span class="tt-r tt-hidemob">7d</span><span class="tt-r tt-hidemob">Vol 24h</span><span class="tt-r tt-hidemob">Last 7d</span>
+      </div>
+      <div id="tbody"><!-- js --></div>
+    </div>
+    <p class="mt-2 text-right text-[10.5px] text-muted/70" id="updated">Loading markets…</p>
+
+    <!-- ── Book ─────────────────────────────────────────── -->
+    <section id="book" class="tt-section">
+      <div class="tt-section-head">
+        <div><h2 class="tt-h2">Book</h2><p class="tt-sub">Your paper positions, marked to the live tape. Realized and unrealized kept apart, the way a desk keeps them.</p></div>
+        <button type="button" id="bkReset" class="tt-ghost">Reset book</button>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        <div class="rounded-xl border border-frame bg-paper p-4">
+          <p class="tt-colhead">Positions</p>
+          <div id="positions"></div>
+        </div>
+        <div class="rounded-xl border border-frame bg-paper p-4">
+          <p class="tt-colhead">Fills &amp; working orders</p>
+          <div id="fills"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Desks ────────────────────────────────────────── -->
+    <section id="desks" class="tt-section">
+      <h2 class="tt-h2">Desks</h2>
+      <p class="tt-sub">Four desks, one family. The terminal is where they meet.</p>
+      <div class="grid gap-3 sm:grid-cols-3 tt-deskgrid">
+        <a class="tt-desk" href="https://otcdesks.cash/" target="_blank" rel="noopener">
+          <img src="./desks/otc.svg" alt="" width="28" height="28" draggable="false">
+          <span class="tt-desk-body"><span class="tt-desk-name">OTC DESKS</span><span class="tt-desk-sub">Token desks and the launchpad. Where the family started.</span></span>
+          <span class="tt-desk-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="tt-desk" href="https://fxdesks.cash/" target="_blank" rel="noopener">
+          <img src="./desks/fx.png" alt="" width="28" height="28" draggable="false" class="px">
+          <span class="tt-desk-body"><span class="tt-desk-name">FX DESKS</span><span class="tt-desk-sub">The world's currencies at the reference fix, with a converter.</span></span>
+          <span class="tt-desk-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="tt-desk" href="https://bonddesks.cash/" target="_blank" rel="noopener">
+          <img src="./desks/bond.png" alt="" width="28" height="28" draggable="false" class="px">
+          <span class="tt-desk-body"><span class="tt-desk-name">BOND DESKS</span><span class="tt-desk-sub">Stake $BOND, earn $OTC coupons from a fixed, verifiable pool.</span></span>
+          <span class="tt-desk-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="mt-24 border-t border-line pb-2 pt-9">
+    <div class="grid gap-x-6 gap-y-9 sm:grid-cols-[minmax(0,1fr)_auto]">
+      <div class="max-w-[230px]">
+        <div class="flex items-center gap-2">
+          <img alt="" draggable="false" width="22" height="22" class="block h-[22px] w-[22px] select-none" src="./logo-candles.png">
+          <span class="text-[12px] font-bold tracking-[0.06em] text-ink">TRADE TERMINAL</span>
+        </div>
+        <p class="mt-3 text-[10.5px] leading-relaxed text-muted">The desks family on one screen — live crypto, tokenized stocks, desk tokens and FX, a command line, and a paper book that fills at the live mark.</p>
+      </div>
+      <nav aria-label="Footer" class="grid grid-cols-2 gap-x-8 gap-y-7 text-[11px] sm:grid-cols-3 sm:gap-x-11">
+        <div><p class="mb-3 text-[9px] uppercase tracking-[0.14em] text-muted/50">Terminal</p><ul class="space-y-2">
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#terminal">Command line</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist">Watchlist</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#book">Paper book</a></li>
+        </ul></div>
+        <div><p class="mb-3 text-[9px] uppercase tracking-[0.14em] text-muted/50">Markets</p><ul class="space-y-2">
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="crypto">Crypto</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="xstock">xStocks</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="desk">Desk tokens</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="fx">FX</a></li>
+        </ul></div>
+        <div><p class="mb-3 text-[9px] uppercase tracking-[0.14em] text-muted/50">Desks</p><ul class="space-y-2">
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="https://otcdesks.cash/" target="_blank" rel="noopener">OTC Desks</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="https://fxdesks.cash/" target="_blank" rel="noopener">FX Desks</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="https://bonddesks.cash/" target="_blank" rel="noopener">Bond Desks</a></li>
+        </ul></div>
+      </nav>
+    </div>
+    <p class="mt-8 text-[9.5px] text-muted/60">Prices via CoinGecko (crypto, xStocks), DexScreener (desk tokens) and the ECB reference fix via Frankfurter. The book is paper: simulated, informational, not a quote, not financial advice.</p>
+  </footer>
+
+</div>
+<script src="./app.js" defer></script>
+</body>
+</html>

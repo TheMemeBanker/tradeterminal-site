@@ -1,4 +1,6 @@
 gen_*.py
+pxfont.py
+__pycache__/
 preview.png
 logo-bull.png
 favicon-bull.png
@@ -8,4 +10,6 @@ logo-spread.png
 favicon-spread.png
 logo-ship.png
 favicon-ship.png
+logo-keys.png
+favicon-keys.png
 .DS_Store

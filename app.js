@@ -29,6 +29,7 @@
     ["MukLDtJ8Cx9DxLbeyLRSWPSposTMWuwHANbuaudpump", "OTC", "OTC Desks", "https://otcdesks.cash/"],
     ["4XnsZoB8BNbNoKR1d6bG1rxGDM5WUYrarSZfv8t4pump", "BOND", "Bond Desks", "https://bonddesks.cash/"],
     ["J54xPeJjzG3Ni52W9zLRrmFtmR93oXiRfKhgoFUSpump", "FOREX", "FX Desks", "https://fxdesks.cash/"],
+    ["Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump", "TRD", "Trade Terminal", "https://pump.fun/coin/Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump"],
   ];
   const FXP = [["EUR", true, "Euro"], ["GBP", true, "British Pound"], ["JPY", false, "Japanese Yen"], ["CHF", false, "Swiss Franc"], ["AUD", true, "Australian Dollar"], ["CAD", false, "Canadian Dollar"]];
 

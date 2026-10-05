@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trade Terminal — the desks family, on one screen</title>
 <meta name="description" content="A browser trading terminal for the desks family: live crypto, tokenized stocks, desk tokens and FX on one screen, with a command line and a paper book that fills at the live mark.">
-<link rel="icon" type="image/png" href="./favicon-keypad.png">
+<link rel="icon" type="image/png" href="./favicon-ticker.png">
 <meta property="og:title" content="Trade Terminal">
 <meta property="og:description" content="Live markets, a command line, and a paper book — the desks family on one screen.">
 <meta name="theme-color" content="#141414">
@@ -20,18 +20,17 @@
   <!-- ── Header ─────────────────────────────────────────── -->
   <header class="tt-header">
     <a href="#top" class="tt-brand" aria-label="Trade Terminal home">
-      <img src="./logo-keypad.png" alt="" width="26" height="26" class="tt-brand-logo" draggable="false">
+      <img src="./logo-ticker.png" alt="" width="26" height="26" class="tt-brand-logo" draggable="false">
       <span class="tt-brand-word">TRADE TERMINAL</span>
     </a>
     <div class="tt-sibs">
-      <a id="tradeTokenLink" class="tt-sib" href="https://pump.fun/coin/8vvbqjE9yy5FmU77qYndyun3LvW8vhnE9xhLqzcipump" target="_blank" rel="noopener">$TERM</a>
-      <a class="tt-sib" href="https://otcdesks.cash/" target="_blank" rel="noopener">OTC</a>
+      <a id="tradeTokenLink" class="tt-sib" href="#" aria-disabled="true" title="$TRD — launching">$TRD</a>
     </div>
     <nav aria-label="Main" class="ml-auto flex min-w-0 items-center gap-4 overflow-x-auto no-scrollbar tt-nav">
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#terminal">Terminal</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#watchlist">Watchlist</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#book">Book<span class="ml-1.5 align-middle rounded-full tt-newtag">paper</span></a>
-      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#trade">$TERM</a>
+      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#trade">$TRD</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#desks">Desks</a>
     </nav>
     <button id="themeBtn" class="tt-iconbtn" type="button" aria-label="Toggle theme">
@@ -150,19 +149,19 @@
       </div>
     </section>
 
-    <!-- ── $TERM ───────────────────────────────────────── -->
+    <!-- ── $TRD ───────────────────────────────────────── -->
     <section id="trade" class="tt-section">
-      <h2 class="tt-h2">$TERM</h2>
+      <h2 class="tt-h2">$TRD</h2>
       <p class="tt-sub">The terminal's own token. One link, no middlemen — buy it where it trades.</p>
       <div class="tt-token">
-        <img src="./logo-keypad.png" alt="" width="44" height="44" draggable="false" class="tt-token-mark">
+        <img src="./logo-ticker.png" alt="" width="44" height="44" draggable="false" class="tt-token-mark">
         <div class="tt-token-body">
-          <p class="tt-token-name">$TERM</p>
-          <p class="tt-token-sub" id="tradeTokenNote">Trading on pump.fun. Mint verified on-chain — Token-2022, 6 decimals.</p>
+          <p class="tt-token-name">$TRD</p>
+          <p class="tt-token-sub" id="tradeTokenNote">Launching soon. The mint is verified on-chain before it is linked here.</p>
         </div>
-        <a id="tradeBuyBtn" class="tt-token-cta" href="https://pump.fun/coin/8vvbqjE9yy5FmU77qYndyun3LvW8vhnE9xhLqzcipump" target="_blank" rel="noopener">Buy $TERM</a>
+        <a id="tradeBuyBtn" class="tt-token-cta" href="#" aria-disabled="true" tabindex="-1" title="$TRD — launching">Buy $TRD</a>
       </div>
-      <div class="tt-token-row" id="tradeMintRow"><span class="tt-lab" style="margin:0">Mint</span><span class="tt-token-mint" id="tradeMint"><a href="https://solscan.io/token/8vvbqjE9yy5FmU77qYndyun3LvW8vhnE9xhLqzcipump" target="_blank" rel="noopener">8vvbqjE9yy5FmU77qYndyun3LvW8vhnE9xhLqzcipump</a></span></div>
+      <div class="tt-token-row" id="tradeMintRow"><span class="tt-lab" style="margin:0">Mint</span><span class="tt-token-mint" id="tradeMint">launching soon</span></div>
     </section>
 
     <!-- ── Desks ────────────────────────────────────────── -->
@@ -195,7 +194,7 @@
     <div class="grid gap-x-6 gap-y-9 sm:grid-cols-[minmax(0,1fr)_auto]">
       <div class="max-w-[230px]">
         <div class="flex items-center gap-2">
-          <img alt="" draggable="false" width="22" height="22" class="block h-[22px] w-[22px] select-none" src="./logo-keypad.png">
+          <img alt="" draggable="false" width="22" height="22" class="block h-[22px] w-[22px] select-none" src="./logo-ticker.png">
           <span class="text-[12px] font-bold tracking-[0.06em] text-ink">TRADE TERMINAL</span>
         </div>
         <p class="mt-3 text-[10.5px] leading-relaxed text-muted">The desks family on one screen — live crypto, tokenized stocks, desk tokens and FX, a command line, and a paper book that fills at the live mark.</p>
@@ -211,7 +210,7 @@
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="xstock">xStocks</a></li>
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="desk">Desk tokens</a></li>
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="fx">FX</a></li>
-          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#trade">$TERM</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#trade">$TRD</a></li>
         </ul></div>
         <div><p class="mb-3 text-[9px] uppercase tracking-[0.14em] text-muted/50">Desks</p><ul class="space-y-2">
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="https://otcdesks.cash/" target="_blank" rel="noopener">OTC Desks</a></li>

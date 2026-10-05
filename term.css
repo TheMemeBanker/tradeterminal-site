@@ -1,6 +1,6 @@
 :root {
-  --tt: #0f9ea3;         /* terminal cyan — the trade desk's own accent */
-  --tt-hi: #17b3b8;
+  --tt: #5a4bd4;         /* ultraviolet — the trade desk's own accent (rebrand 2026-10-05) */
+  --tt-hi: #6d5fe6;
   --tt-ink: #ffffff;
   --tt-soft: color-mix(in srgb, var(--tt) 10%, var(--paper));
   --tt-line: color-mix(in srgb, var(--tt) 34%, var(--frame));
@@ -8,9 +8,9 @@
   --tt-sell: var(--alert);
 }
 [data-theme="dark"] {
-  --tt: #4fd8dc;
-  --tt-hi: #7ae6e9;
-  --tt-ink: #06282a;
+  --tt: #a497ff;
+  --tt-hi: #bcb2ff;
+  --tt-ink: #16113a;
   --tt-soft: color-mix(in srgb, var(--tt) 14%, var(--paper));
   --tt-line: color-mix(in srgb, var(--tt) 40%, var(--frame));
 }

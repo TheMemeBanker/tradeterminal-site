@@ -29,7 +29,6 @@
     ["MukLDtJ8Cx9DxLbeyLRSWPSposTMWuwHANbuaudpump", "OTC", "OTC Desks", "https://otcdesks.cash/"],
     ["4XnsZoB8BNbNoKR1d6bG1rxGDM5WUYrarSZfv8t4pump", "BOND", "Bond Desks", "https://bonddesks.cash/"],
     ["J54xPeJjzG3Ni52W9zLRrmFtmR93oXiRfKhgoFUSpump", "FOREX", "FX Desks", "https://fxdesks.cash/"],
-    ["Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump", "TRD", "Trade Terminal", "https://pump.fun/coin/Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump"],
   ];
   const FXP = [["EUR", true, "Euro"], ["GBP", true, "British Pound"], ["JPY", false, "Japanese Yen"], ["CHF", false, "Swiss Franc"], ["AUD", true, "Australian Dollar"], ["CAD", false, "Canadian Dollar"]];
 
@@ -206,6 +205,8 @@
     v = [...v].sort((a, b) => s === "name" ? a.sym.localeCompare(b.sym) : s === "price" ? (b.price || 0) - (a.price || 0) : s === "vol" ? (b.vol || 0) - (a.vol || 0) : m(b) - m(a));
     return v;
   }
+  const shown = new Map();   // sym -> last price text on the board; a change flips the flap
+  const flipped = (it) => { const t = it.group === "fx" ? fmtPx(it.price) : fmtUSD(it.price); const was = shown.get(it.sym); shown.set(it.sym, t); return was !== undefined && was !== t ? " flip" : ""; };
   function renderTable() {
     const v = visible();
     const maxPage = Math.max(0, Math.ceil(v.length / state.PAGE) - 1);
@@ -214,7 +215,7 @@
     $("tbody").innerHTML = slice.map((it) => `
       <div class="tt-row${state.sel === it.sym ? " sel" : ""}" data-sym="${it.sym}" role="button" tabindex="0">
         <span class="tt-name">${badge(it)}<span style="min-width:0"><span class="nm">${it.sym}${state.watch.has(it.sym) ? '<span class="w" title="Watching">◆</span>' : ""}</span> <span class="tk">${it.nomarket ? "no market yet" : it.name}</span></span></span>
-        <span class="tt-r tt-px">${it.group === "fx" ? fmtPx(it.price) : fmtUSD(it.price)}</span>
+        <span class="tt-r tt-px${flipped(it)}">${it.group === "fx" ? fmtPx(it.price) : fmtUSD(it.price)}</span>
         <span class="tt-r tt-delta tt-hidemob ${deltaCls(it.d1h)}">${fmtDelta(it.d1h)}</span>
         <span class="tt-r tt-delta ${deltaCls(it.d24)}">${fmtDelta(it.d24)}</span>
         <span class="tt-r tt-delta tt-hidemob ${deltaCls(it.d7)}">${fmtDelta(it.d7)}</span>

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trade Terminal — the desks family, on one screen</title>
-<meta name="description" content="A browser trading terminal for the desks family: live crypto, tokenized stocks, desk tokens and FX on one screen, with a command line and a paper book that fills at the live mark.">
-<link rel="icon" type="image/png" href="./favicon-ticker.png">
+<title>Trade Terminal — every quote on the board</title>
+<meta name="description" content="The desks family's trading terminal: live crypto, tokenized stocks, desk tokens and FX on one board, a command line, and a paper book that fills at the live mark.">
+<link rel="icon" type="image/png" href="./favicon-board.png">
 <meta property="og:title" content="Trade Terminal">
-<meta property="og:description" content="Live markets, a command line, and a paper book — the desks family on one screen.">
+<meta property="og:description" content="Every quote on the board. A command line, a paper book, the desks family on one screen.">
 <meta name="theme-color" content="#141414">
 <link rel="stylesheet" href="./theirs.css">
 <link rel="stylesheet" href="./term.css">
@@ -20,17 +20,17 @@
   <!-- ── Header ─────────────────────────────────────────── -->
   <header class="tt-header">
     <a href="#top" class="tt-brand" aria-label="Trade Terminal home">
-      <img src="./logo-ticker.png" alt="" width="26" height="26" class="tt-brand-logo" draggable="false">
-      <span class="tt-brand-word">TRADE TERMINAL</span>
+      <img src="./logo-board.png" alt="" width="26" height="26" class="tt-brand-logo" draggable="false">
+      <span class="tt-brand-word" aria-label="Trade Terminal"><span class="fc">T</span><span class="fc">R</span><span class="fc">A</span><span class="fc">D</span><span class="fc">E</span><span class="fc sp" aria-hidden="true"></span><span class="fc">T</span><span class="fc">E</span><span class="fc">R</span><span class="fc">M</span><span class="fc">I</span><span class="fc">N</span><span class="fc">A</span><span class="fc">L</span></span>
     </a>
     <div class="tt-sibs">
-      <a id="tradeTokenLink" class="tt-sib" href="https://pump.fun/coin/Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump" target="_blank" rel="noopener">$TRD</a>
+      <a id="tradeTokenLink" class="tt-sib" href="#" aria-disabled="true" title="$TT — launching">$TT</a>
     </div>
     <nav aria-label="Main" class="ml-auto flex min-w-0 items-center gap-4 overflow-x-auto no-scrollbar tt-nav">
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#terminal">Terminal</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#watchlist">Watchlist</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#book">Book<span class="ml-1.5 align-middle rounded-full tt-newtag">paper</span></a>
-      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#trade">$TRD</a>
+      <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#trade">$TT</a>
       <a class="shrink-0 text-[12.5px] transition-colors text-muted hover:text-ink" href="#desks">Desks</a>
     </nav>
     <button id="themeBtn" class="tt-iconbtn" type="button" aria-label="Toggle theme">
@@ -149,19 +149,19 @@
       </div>
     </section>
 
-    <!-- ── $TRD ───────────────────────────────────────── -->
+    <!-- ── $TT ───────────────────────────────────────── -->
     <section id="trade" class="tt-section">
-      <h2 class="tt-h2">$TRD</h2>
+      <h2 class="tt-h2">$TT</h2>
       <p class="tt-sub">The terminal's own token. One link, no middlemen — buy it where it trades.</p>
       <div class="tt-token">
-        <img src="./logo-ticker.png" alt="" width="44" height="44" draggable="false" class="tt-token-mark">
+        <img src="./logo-board.png" alt="" width="44" height="44" draggable="false" class="tt-token-mark">
         <div class="tt-token-body">
-          <p class="tt-token-name">$TRD</p>
-          <p class="tt-token-sub" id="tradeTokenNote">Trading on pump.fun. Mint verified on-chain before linking.</p>
+          <p class="tt-token-name">$TT</p>
+          <p class="tt-token-sub" id="tradeTokenNote">Launching soon. The mint is verified on-chain before it is linked here.</p>
         </div>
-        <a id="tradeBuyBtn" class="tt-token-cta" href="https://pump.fun/coin/Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump" target="_blank" rel="noopener">Buy $TRD</a>
+        <a id="tradeBuyBtn" class="tt-token-cta" href="#" aria-disabled="true" tabindex="-1" title="$TT — launching">Buy $TT</a>
       </div>
-      <div class="tt-token-row" id="tradeMintRow"><span class="tt-lab" style="margin:0">Mint</span><span class="tt-token-mint" id="tradeMint"><a href="https://solscan.io/token/Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump" target="_blank" rel="noopener">Fa4AMVRFa5hCU9UtvHu8NkxEtxuuLFY6Z442DJVCpump</a></span></div>
+      <div class="tt-token-row" id="tradeMintRow"><span class="tt-lab" style="margin:0">Mint</span><span class="tt-token-mint" id="tradeMint">launching soon</span></div>
     </section>
 
     <!-- ── Desks ────────────────────────────────────────── -->
@@ -194,10 +194,10 @@
     <div class="grid gap-x-6 gap-y-9 sm:grid-cols-[minmax(0,1fr)_auto]">
       <div class="max-w-[230px]">
         <div class="flex items-center gap-2">
-          <img alt="" draggable="false" width="22" height="22" class="block h-[22px] w-[22px] select-none" src="./logo-ticker.png">
+          <img alt="" draggable="false" width="22" height="22" class="block h-[22px] w-[22px] select-none" src="./logo-board.png">
           <span class="text-[12px] font-bold tracking-[0.06em] text-ink">TRADE TERMINAL</span>
         </div>
-        <p class="mt-3 text-[10.5px] leading-relaxed text-muted">The desks family on one screen — live crypto, tokenized stocks, desk tokens and FX, a command line, and a paper book that fills at the live mark.</p>
+        <p class="mt-3 text-[10.5px] leading-relaxed text-muted">Every quote on the board — live crypto, tokenized stocks, desk tokens and FX, a command line, and a paper book that fills at the live mark.</p>
       </div>
       <nav aria-label="Footer" class="grid grid-cols-2 gap-x-8 gap-y-7 text-[11px] sm:grid-cols-3 sm:gap-x-11">
         <div><p class="mb-3 text-[9px] uppercase tracking-[0.14em] text-muted/50">Terminal</p><ul class="space-y-2">
@@ -210,7 +210,7 @@
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="xstock">xStocks</a></li>
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="desk">Desk tokens</a></li>
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#watchlist" data-filter="fx">FX</a></li>
-          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#trade">$TRD</a></li>
+          <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="#trade">$TT</a></li>
         </ul></div>
         <div><p class="mb-3 text-[9px] uppercase tracking-[0.14em] text-muted/50">Desks</p><ul class="space-y-2">
           <li><a class="inline-block text-muted transition-colors duration-150 hover:text-ink" href="https://otcdesks.cash/" target="_blank" rel="noopener">OTC Desks</a></li>

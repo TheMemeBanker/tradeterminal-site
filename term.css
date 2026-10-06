@@ -1,18 +1,26 @@
 :root {
-  --tt: #5a4bd4;         /* ultraviolet — the trade desk's own accent (rebrand 2026-10-05) */
-  --tt-hi: #6d5fe6;
+  --tt: #c2267d;         /* signal magenta — the trade desk's own accent (rebrand v8, 2026-10-06) */
+  --tt-hi: #d93b93;
   --tt-ink: #ffffff;
   --tt-soft: color-mix(in srgb, var(--tt) 10%, var(--paper));
   --tt-line: color-mix(in srgb, var(--tt) 34%, var(--frame));
   --tt-buy: var(--phos);
   --tt-sell: var(--alert);
+  --board: #241f1f;      /* the quote board: dark housing in both themes */
+  --board-2: #2f2929;
+  --flap: #f1e6d2;       /* cream flap face */
+  --flap-dim: #c9bda6;
+  --flap-up: #4ee39b;
+  --flap-dn: #f04438;
 }
 [data-theme="dark"] {
-  --tt: #a497ff;
-  --tt-hi: #bcb2ff;
-  --tt-ink: #16113a;
+  --tt: #ff85cf;
+  --tt-hi: #ffa3dc;
+  --tt-ink: #36102a;
   --tt-soft: color-mix(in srgb, var(--tt) 14%, var(--paper));
   --tt-line: color-mix(in srgb, var(--tt) 40%, var(--frame));
+  --board: #2a2424;
+  --board-2: #363030;
 }
 
 /* Trade Terminal — components on top of the OTC design tokens (theirs.css).
@@ -29,7 +37,12 @@ body { font-family: var(--font-mono); }
 .tt-header { display: flex; align-items: center; gap: 14px; padding: 18px 0 14px; }
 .tt-brand { display: flex; flex-shrink: 0; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); }
 .tt-brand-logo { display: block; height: 26px; width: 26px; image-rendering: pixelated; }
-.tt-brand-word { font-size: 12.5px; font-weight: 700; letter-spacing: .07em; white-space: nowrap; }
+.tt-brand-word { display: inline-flex; align-items: center; gap: 1.5px; white-space: nowrap; }
+.tt-brand-word .fc { position: relative; display: grid; place-items: center; width: 10px; height: 14px; border-radius: 2px; background: var(--board); color: var(--flap); font-size: 9px; font-weight: 700; line-height: 1; letter-spacing: 0; overflow: hidden; }
+.tt-brand-word .fc::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0,0,0,.5); }
+.tt-brand-word .fc.sp { width: 5px; background: transparent; }
+.tt-brand-word .fc.sp::after { display: none; }
+.tt-brand:hover .fc { background: var(--board-2); }
 .tt-nav { margin-right: 2px; }
 .tt-nav a { text-decoration: none; }
 .tt-iconbtn { display: grid; place-items: center; height: 28px; width: 28px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; }
@@ -45,15 +58,18 @@ body { font-family: var(--font-mono); }
 .tt-newtag { padding: 1px 6px; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--tt); background: var(--tt-soft); border-radius: 999px; }
 
 /* ticker rail */
-.tt-rail { position: relative; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -20px; padding: 7px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.tt-rail { position: relative; overflow: hidden; background: var(--board); border-top: 2px solid var(--tt); border-bottom: 1px solid var(--board-2); margin: 0 -20px; padding: 8px 0; min-height: 33px; }
 .tt-rail-track { display: flex; gap: 26px; width: max-content; animation: ttmarquee 70s linear infinite; will-change: transform; }
+.tt-rail::before, .tt-rail::after { content: ""; position: absolute; top: 0; bottom: 0; width: 36px; z-index: 1; pointer-events: none; }
+.tt-rail::before { left: 0; background: linear-gradient(90deg, var(--board), transparent); }
+.tt-rail::after { right: 0; background: linear-gradient(270deg, var(--board), transparent); }
 .tt-rail:hover .tt-rail-track { animation-play-state: paused; }
 @keyframes ttmarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .tt-rail-track { animation: none; } }
-.tt-tick { display: flex; align-items: center; gap: 7px; font-size: 11px; white-space: nowrap; color: var(--muted); }
-.tt-tick b { color: var(--ink); font-weight: 700; }
-.tt-tick .v { color: var(--muted); font-variant-numeric: tabular-nums; }
-.tt-tick .up { color: var(--phos); } .tt-tick .dn { color: var(--alert); }
+.tt-tick { display: flex; align-items: center; gap: 7px; font-size: 11px; white-space: nowrap; color: var(--flap-dim); }
+.tt-tick b { color: var(--flap); font-weight: 700; }
+.tt-tick .v { color: var(--flap-dim); font-variant-numeric: tabular-nums; }
+.tt-tick .up { color: var(--flap-up); } .tt-tick .dn { color: var(--flap-dn); }
 
 /* status line */
 .tt-status { display: flex; align-items: center; gap: 8px; padding: 8px 0 0; font-size: 10.5px; color: var(--muted); }
@@ -159,7 +175,7 @@ body { font-family: var(--font-mono); }
 
 /* table */
 .tt-thead, .tt-row { display: grid; grid-template-columns: minmax(0, 1.7fr) .9fr .55fr .6fr .55fr .8fr .9fr; gap: 10px; align-items: center; padding: 11px 16px; }
-.tt-thead { border-bottom: 1px solid var(--line); background: var(--well); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.tt-thead { border-bottom: 0; background: var(--board); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--flap-dim); }
 .tt-row { border-bottom: 1px solid var(--line); font-size: 12.5px; cursor: pointer; }
 .tt-row:last-child { border-bottom: 0; }
 .tt-row:hover { background: color-mix(in srgb, var(--well) 55%, transparent); }
@@ -170,6 +186,9 @@ body { font-family: var(--font-mono); }
 .tt-name .tk { color: var(--muted); font-size: 10.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tt-name .w { color: var(--tt); font-size: 10px; margin-left: 2px; }
 .tt-px { font-variant-numeric: tabular-nums; color: var(--ink); }
+.tt-px.flip { display: inline-block; animation: ttflip .55s cubic-bezier(.3,.7,.3,1); transform-origin: 50% 50%; }
+@keyframes ttflip { 0% { transform: rotateX(0); } 45% { transform: rotateX(-88deg); color: var(--tt); } 55% { transform: rotateX(88deg); color: var(--tt); } 100% { transform: rotateX(0); } }
+@media (prefers-reduced-motion: reduce) { .tt-px.flip { animation: none; } }
 .tt-delta { font-variant-numeric: tabular-nums; font-size: 11.5px; }
 .tt-delta.up { color: var(--phos); } .tt-delta.dn { color: var(--alert); } .tt-delta.fl { color: var(--muted); }
 .tt-spark { display: block; margin-left: auto; }
